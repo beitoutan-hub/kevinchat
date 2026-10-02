@@ -1,167 +1,82 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+    <!-- 關鍵核心：強制瀏覽器使用 UTF-8 編碼，解決中文亂碼問題 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="員工姓名、部門與分機號碼對照表">
     <title>員工分機對照表</title>
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            padding: 24px;
-            font-family: Arial, "Microsoft JhengHei", sans-serif;
-            font-size: 14px;
-            color: #333;
-            background-color: #fff;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-            font-size: 24px;
-            text-align: center;
-        }
-
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            min-width: 480px;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th,
-        td {
-            padding: 12px 16px;
-            border: 1px solid #ccc;
-        }
-
-        thead th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-            white-space: nowrap;
-        }
-
-        tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tbody tr:hover {
-            background-color: #eef5ff;
-        }
-
-        .employee-name {
-            font-weight: bold;
-            color: #333;
-        }
-
-        .extension {
-            color: #0056b3;
-            font-weight: bold;
-            font-variant-numeric: tabular-nums;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 12px;
-            }
-
-            h1 {
-                font-size: 20px;
-            }
-
-            th,
-            td {
-                padding: 10px;
-            }
-        }
-    </style>
 </head>
-
 <body>
-    <h1>員工分機對照表</h1>
 
-    <div class="table-container">
-        <table>
-            <caption style="position:absolute;left:-9999px;">
-                員工姓名、所屬部門及分機號碼清單
-            </caption>
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 14px; text-align: left;">
+  <thead>
+    <tr style="background-color: #f2f2f2;">
+      <th style="width: 15%;">員工姓名</th>
+      <th style="width: 15%;">部門</th>
+      <th style="width: 15%;">分機號碼</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="font-weight: bold; color: #333;">陳信易</td>
+      <td>錄音系統部</td>
+      <td style="color: #0056b3; font-weight: bold;">119651</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold; color: #333;">謝杰儒</td>
+      <td>錄音系統部</td>
+      <td style="color: #0056b3; font-weight: bold;">119652</td>
+    </tr>
+    <tr>
+      <td style="font-weight: bold; color: #333;">黃信介</td>
+      <td>錄音系統部</td>
+      <td style="color: #0056b3; font-weight: bold;">119642</td>
+    </tr>
+        <tr>
+      <td style="font-weight: bold; color: #333;">陳志清</td>
+      <td>策略營運發展部</td>
+      <td style="color: #0056b3; font-weight: bold;">119635</td>
+    </tr>
+        <tr>
+      <td style="font-weight: bold; color: #333;">呂相鋆</td>
+      <td>策略營運發展部</td>
+      <td style="color: #0056b3; font-weight: bold;">119675</td>
+    </tr>
+        <tr>
+      <td style="font-weight: bold; color: #333;">王勇智</td>
+      <td>策略營運發展部</td>
+      <td style="color: #0056b3; font-weight: bold;">119694</td>
+    </tr>
+        <tr>
+      <td style="font-weight: bold; color: #333;">許達明</td>
+      <td>策略營運發展部</td>
+      <td style="color: #0056b3; font-weight: bold;">119650</td>
+    </tr>
+        <tr>
+      <td style="font-weight: bold; color: #333;">紹聖忠</td>
+      <td>策略營運發展部</td>
+      <td style="color: #0056b3; font-weight: bold;">119636</td>
+    </tr>
+        <tr>
+      <td style="font-weight: bold; color: #333;">徐于婷</td>
+      <td>工程部</td>
+      <td style="color: #0056b3; font-weight: bold;">119632</td>
+    </tr>
+        <tr>
+      <td style="font-weight: bold; color: #333;">許達明</td>
+      <td>工程部</td>
+      <td style="color: #0056b3; font-weight: bold;">119630</td>
+    </tr>
+        <tr>
+      <td style="font-weight: bold; color: #333;">陳寶琴</td>
+      <td>業務部</td>
+      <td style="color: #0056b3; font-weight: bold;">119633</td>
+    </tr>
+  </tbody>
+</table>
 
-            <thead>
-                <tr>
-                    <th scope="col" style="width: 33.33%;">員工姓名</th>
-                    <th scope="col" style="width: 33.33%;">部門</th>
-                    <th scope="col" style="width: 33.33%;">分機號碼</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td class="employee-name">陳信易</td>
-                    <td>錄音系統部</td>
-                    <td class="extension">119651</td>
-                </tr>
-                <tr>
-                    <td class="employee-name">謝杰儒</td>
-                    <td>錄音系統部</td>
-                    <td class="extension">119652</td>
-                </tr>
-                <tr>
-                    <td class="employee-name">黃信介</td>
-                    <td>錄音系統部</td>
-                    <td class="extension">119642</td>
-                </tr>
-                <tr>
-                    <td class="employee-name">陳志清</td>
-                    <td>策略營運發展部</td>
-                    <td class="extension">119635</td>
-                </tr>
-                <tr>
-                    <td class="employee-name">呂相鋆</td>
-                    <td>策略營運發展部</td>
-                    <td class="extension">119675</td>
-                </tr>
-                <tr>
-                    <td class="employee-name">王勇智</td>
-                    <td>策略營運發展部</td>
-                    <td class="extension">119694</td>
-                </tr>
-                <tr>
-                    <td class="employee-name">許達明</td>
-                    <td>策略營運發展部</td>
-                    <td class="extension">119650</td>
-                </tr>
-                <tr>
-                    <td class="employee-name">紹聖忠</td>
-                    <td>策略營運發展部</td>
-                    <td class="extension">119636</td>
-                </tr>
-                <tr>
-                    <td class="employee-name">徐于婷</td>
-                    <td>工程部</td>
-                    <td class="extension">119632</td>
-                </tr>
-                <tr>
-                    <td class="employee-name">許達明</td>
-                    <td>工程部</td>
-                    <td class="extension">119630</td>
-                </tr>
-                <tr>
-                    <td class="employee-name">陳寶琴</td>
-                    <td>業務部</td>
-                    <td class="extension">119633</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
 </body>
 </html>
+
+
