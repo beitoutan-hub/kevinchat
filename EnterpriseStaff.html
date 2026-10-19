@@ -1,84 +1,64 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
-    <!-- 關鍵核心：強制瀏覽器使用 UTF-8 編碼，解決中文亂碼問題 -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>員工分機對照表</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>企業員工分機與部門對照表</title>
+<style>
+body{font-family:Arial,"Microsoft JhengHei",sans-serif;margin:24px;background:#f5f7fa;color:#222}
+h1{font-size:1.6rem} .note{color:#555;margin-bottom:16px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+input,select{font:inherit;padding:10px;border:1px solid #bbb;border-radius:6px;background:white}
+input{flex:1;min-width:240px}
+.table-wrap{overflow:auto;background:white;border-radius:8px;border:1px solid #ddd}
+table{border-collapse:collapse;width:100%;min-width:720px}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid #e5e7eb}
+th{background:#e9eef5;position:sticky;top:0}
+tr:hover{background:#f7fbff}
+#count{margin:10px 0;color:#444}
+</style>
 </head>
 <body>
-
-<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif; font-size: 14px; text-align: left;">
-  <thead>
-    <tr style="background-color: #f2f2f2;">
-      <th style="width: 15%;">員工姓名</th>
-      <th style="width: 15%;">部門</th>
-      <th style="width: 15%;">分機號碼</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="font-weight: bold; color: #333;">陳信易</td>
-      <td>錄音系統部</td>
-      <td style="color: #0056b3; font-weight: bold;">149651</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold; color: #333;">謝杰儒</td>
-      <td>錄音系統部</td>
-      <td style="color: #0056b3; font-weight: bold;">149652</td>
-    </tr>
-    <tr>
-      <td style="font-weight: bold; color: #333;">黃信介</td>
-      <td>錄音系統部</td>
-      <td style="color: #0056b3; font-weight: bold;">149642</td>
-    </tr>
-        <tr>
-      <td style="font-weight: bold; color: #333;">陳志清</td>
-      <td>策略營運發展部</td>
-      <td style="color: #0056b3; font-weight: bold;">149635</td>
-    </tr>
-        <tr>
-      <td style="font-weight: bold; color: #333;">呂相鋆</td>
-      <td>策略營運發展部</td>
-      <td style="color: #0056b3; font-weight: bold;">149675</td>
-    </tr>
-        <tr>
-      <td style="font-weight: bold; color: #333;">王勇智</td>
-      <td>策略營運發展部</td>
-      <td style="color: #0056b3; font-weight: bold;">149694</td>
-    </tr>
-        <tr>
-      <td style="font-weight: bold; color: #333;">許達明</td>
-      <td>策略營運發展部</td>
-      <td style="color: #0056b3; font-weight: bold;">149650</td>
-    </tr>
-        <tr>
-      <td style="font-weight: bold; color: #333;">紹聖忠</td>
-      <td>策略營運發展部</td>
-      <td style="color: #0056b3; font-weight: bold;">149636</td>
-    </tr>
-    
-        <tr>
-      <td style="font-weight: bold; color: #333;">許達明</td>
-      <td>工程部</td>
-      <td style="color: #0056b3; font-weight: bold;">149630</td>
-    </tr>
-       <tr>
-      <td style="font-weight: bold; color: #333;">邱德宏</td>
-      <td>工程部</td>
-      <td style="color: #0056b3; font-weight: bold;">114992</td>
-    </tr>
-        <tr>
-      <td style="font-weight: bold; color: #333;">陳寶琴</td>
-      <td>業務部</td>
-      <td style="color: #0056b3; font-weight: bold;">114991</td>
-    </tr>
-         
-  </tbody>
+<h1>企業員工分機與部門對照表</h1>
+<div class="note">公司：元大金控｜共 305 筆資料。可依公司、姓名、職稱、分機或部門搜尋。</div>
+<div class="controls">
+  <input id="search" type="search" placeholder="輸入姓名、分機、職稱或部門關鍵字…" aria-label="搜尋員工資料">
+  <select id="company" aria-label="選擇公司">
+    <option value="">全部公司</option>
+    <option value="元大金控">元大金控</option>
+    <option value="元大銀行">元大銀行</option>
+    <option value="元大證券">元大證券</option>
+  </select>
+</div>
+<div id="count"></div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>公司</th><th>員工姓名</th><th>職稱</th><th>分機</th><th>部門</th></tr></thead>
+<tbody id="staffRows">
+<tr><td>元大金控</td><td>林瑞源</td><td>行政長</td><td>6626</td><td>行政管理部</td></tr><tr><td>元大金控</td><td>陳又慈</td><td>副行政長</td><td>6628</td><td>金控行政管理部</td></tr><tr><td>元大金控</td><td>林貞君</td><td>資深協理</td><td>6895</td><td>行政管理部</td></tr><tr><td>元大金控</td><td>鍾秀玲</td><td>資深協理</td><td>6026</td><td>行政管理部</td></tr><tr><td>元大金控</td><td>吳尚恩</td><td>專業協理</td><td>3179</td><td>行政管理部</td></tr><tr><td>元大金控</td><td>朱秉恒</td><td>專業資深經理</td><td>6137</td><td>行政管理部</td></tr><tr><td>元大金控</td><td>戴佑純</td><td>經理</td><td>6318</td><td>專案組</td></tr><tr><td>元大金控</td><td>王雅玲</td><td>員工</td><td>6361</td><td>專案組</td></tr><tr><td>元大金控</td><td>曾翔瑋</td><td>員工</td><td>6375</td><td>專案組</td></tr><tr><td>元大金控</td><td>葉怡瑩</td><td>員工</td><td>6138</td><td>專案組</td></tr><tr><td>元大金控</td><td>許維倫</td><td>員工</td><td>3178</td><td>專案組</td></tr><tr><td>元大金控</td><td>黃敏琦</td><td>員工</td><td>6358</td><td>專案組</td></tr><tr><td>元大金控</td><td>李若妍</td><td>員工</td><td>3167</td><td>專案組</td></tr><tr><td>元大金控</td><td>陳聖中</td><td>員工</td><td>6307</td><td>專案組</td></tr><tr><td>元大金控</td><td>陳渝婷</td><td>員工</td><td>6379</td><td>專案組</td></tr><tr><td>元大金控</td><td>施彥廷</td><td>副理</td><td>6304</td><td>行政組</td></tr><tr><td>元大金控</td><td>陳素貞</td><td>專業資深經理</td><td>6367</td><td>行政組</td></tr><tr><td>元大金控</td><td>簡如珮</td><td>員工</td><td>6393</td><td>行政組</td></tr><tr><td>元大金控</td><td>洪怡潔</td><td>員工</td><td>3146</td><td>行政組</td></tr><tr><td>元大金控</td><td>宋麟徵</td><td>員工</td><td>5616</td><td>行政組</td></tr><tr><td>元大金控</td><td>郭梅雪</td><td>員工</td><td>6363</td><td>行政組</td></tr><tr><td>元大金控</td><td>邱淑娟</td><td>員工</td><td>6377</td><td>行政組</td></tr><tr><td>元大金控</td><td>李姸潔</td><td>員工</td><td>3104</td><td>行政組</td></tr><tr><td>元大金控</td><td>張妤帆</td><td>員工</td><td>6372</td><td>行政組</td></tr><tr><td>元大金控</td><td>黃文科</td><td>員工</td><td>3173</td><td>行政組</td></tr><tr><td>元大金控</td><td>劉家育</td><td>員工</td><td>6347</td><td>行政組</td></tr><tr><td>元大金控</td><td>吳振語</td><td>員工</td><td>6314</td><td>行政組</td></tr><tr><td>元大金控</td><td>呂宗懋</td><td>員工</td><td>6392</td><td>行政組</td></tr><tr><td>元大金控</td><td>柯美朱</td><td>員工</td><td>6351</td><td>行政組</td></tr><tr><td>元大金控</td><td>徐振瑜</td><td>員工</td><td>3147</td><td>行政組</td></tr><tr><td>元大金控</td><td>孫慧君</td><td>員工</td><td>6750</td><td>行政組</td></tr><tr><td>元大金控</td><td>林家慶</td><td>員工</td><td>3739</td><td>行政組</td></tr><tr><td>元大銀行</td><td>陳美佩</td><td>資深經理</td><td>5556</td><td>資產組</td></tr><tr><td>元大銀行</td><td>余奕儒</td><td>員工</td><td>5559</td><td>資產組</td></tr><tr><td>元大銀行</td><td>邱海婷</td><td>員工</td><td>6373</td><td>資產組</td></tr><tr><td>元大銀行</td><td>李馥潔</td><td>員工</td><td>6328</td><td>資產組</td></tr><tr><td>元大銀行</td><td>田欣生</td><td>員工</td><td>3143</td><td>資產組</td></tr><tr><td>元大銀行</td><td>曾美華</td><td>資深經理</td><td>5558</td><td>採購組</td></tr><tr><td>元大銀行</td><td>朱書霆</td><td>專業經理</td><td>3163</td><td>採購組</td></tr><tr><td>元大銀行</td><td>許志偉</td><td>專業經理</td><td>6313</td><td>採購組</td></tr><tr><td>元大銀行</td><td>黃仁財</td><td>員工</td><td>6305</td><td>採購組</td></tr><tr><td>元大銀行</td><td>張秀雯</td><td>員工</td><td>6323</td><td>採購組</td></tr><tr><td>元大銀行</td><td>莊賀竣</td><td>員工</td><td>6302</td><td>採購組</td></tr><tr><td>元大銀行</td><td>王詠宜</td><td>員工</td><td>6348</td><td>採購組</td></tr><tr><td>元大銀行</td><td>李睿緯</td><td>員工</td><td>3125</td><td>採購組</td></tr><tr><td>元大銀行</td><td>謝孟潔</td><td>資深經理</td><td>6139</td><td>公共事務組</td></tr><tr><td>元大銀行</td><td>陳聖彬</td><td>專業經理</td><td>6109</td><td>公共事務組</td></tr><tr><td>元大銀行</td><td>徐雅文</td><td>員工</td><td>3168</td><td>公共事務組</td></tr><tr><td>元大銀行</td><td>李偉祥</td><td>員工</td><td>3164</td><td>公共事務組</td></tr><tr><td>元大銀行</td><td>陳郃頻</td><td>員工</td><td>6110</td><td>公共事務組</td></tr><tr><td>元大銀行</td><td>錢利忠</td><td>員工</td><td>6357</td><td>公共事務組</td></tr><tr><td>元大銀行</td><td>李偉華</td><td>員工</td><td>6353</td><td>公共事務組</td></tr><tr><td>元大銀行</td><td>羅郁嫻</td><td>員工</td><td>3162</td><td>公共事務組</td></tr><tr><td>元大銀行</td><td>徐翊瑄</td><td>員工</td><td>3177</td><td>公共事務組</td></tr><tr><td>元大銀行</td><td>梁珮綺</td><td>員工</td><td>6380</td><td>公共事務組</td></tr><tr><td>元大銀行</td><td>謝君臨</td><td>員工</td><td>6368</td><td>公共事務組</td></tr><tr><td>元大銀行</td><td>王宗揚</td><td>經理</td><td>6331</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>王柏騰</td><td>經理</td><td>6376</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>徐名山</td><td>經理</td><td>6308</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>邱國龍</td><td>員工</td><td>125331</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>林正信</td><td>員工</td><td>6309</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>陳契印</td><td>員工</td><td>6312</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>吳奕翰</td><td>員工</td><td>6364</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>張荐博</td><td>員工</td><td>3175</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>楊聖慧</td><td>執行長</td><td>2173-6839</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>林昶志</td><td>協理</td><td>3699</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>楊秋月</td><td>專業資深經理</td><td>3860</td><td>數位金融事業处</td></tr><tr><td>元大銀行</td><td>賀靖雅</td><td>專業經理</td><td>3698</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>唐瑋</td><td>專業經理</td><td>127310</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>林志遠</td><td>資深副理</td><td>3865</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>許文綺</td><td>員工</td><td>3856</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>卓彥棋</td><td>員工</td><td>3855</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>黃柏竣</td><td>員工</td><td>3852</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>李柏廷</td><td>員工</td><td>3851</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>林佳彙</td><td>員工</td><td>3850</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>施岑螢</td><td>員工</td><td>3558</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>吳怡萱</td><td>員工</td><td>8397</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>解佳伶</td><td>員工</td><td>8290</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>蔡淑燕</td><td>專業協理</td><td>126836</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>李彝廷</td><td>員工</td><td>126814</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>許昕云</td><td>員工</td><td>3857</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>張若盈</td><td>員工</td><td>8247</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>李杰</td><td>員工</td><td>8241</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>黃彥碩</td><td>員工</td><td>126832</td><td>數位金融事業處</td></tr><tr><td>元大銀行</td><td>陳美佩</td><td>資深經理</td><td>5556</td><td>管理部</td></tr><tr><td>元大銀行</td><td>朱秉恒</td><td>資深經理</td><td>6137</td><td>管理部</td></tr><tr><td>元大銀行</td><td>徐名山</td><td>資深經理</td><td>6308</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>王柏騰</td><td>專業經理</td><td>6376</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>游朝利</td><td>專業經理</td><td>6317</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>莊安茹</td><td>員工</td><td>3141</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>林正信</td><td>員工</td><td>6309</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>陳昱豪</td><td>員工</td><td>6346</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>蘇彥明</td><td>員工</td><td>6343</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>林泓晉</td><td>員工</td><td>6327</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>陳契印</td><td>員工</td><td>6312</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>吳奕翰</td><td>員工</td><td>6364</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>陳韋志</td><td>員工</td><td>3118</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>王士境</td><td>員工</td><td>3105</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>陳鵬方</td><td>員工</td><td>6303</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>廖心詮</td><td>員工</td><td>6330</td><td>營繕組</td></tr><tr><td>元大銀行</td><td>余奕儒</td><td>資深副理</td><td>5559</td><td>資產組</td></tr><tr><td>元大銀行</td><td>羅炳義</td><td>員工</td><td>6315</td><td>資產組</td></tr><tr><td>元大銀行</td><td>莊畫於</td><td>員工</td><td>6337</td><td>資產組</td></tr><tr><td>元大銀行</td><td>魏其祥</td><td>員工</td><td>6334</td><td>資產組</td></tr><tr><td>元大銀行</td><td>蕭文龍</td><td>員工</td><td>3103</td><td>資產組</td></tr><tr><td>元大銀行</td><td>吳馨方</td><td>員工</td><td>3113</td><td>資產組</td></tr><tr><td>元大銀行</td><td>梁義祥</td><td>員工</td><td>3122</td><td>資產組</td></tr><tr><td>元大銀行</td><td>李馥潔</td><td>員工</td><td>6328</td><td>資產組</td></tr><tr><td>元大銀行</td><td>王藝臻</td><td>員工</td><td>6320</td><td>資產組</td></tr><tr><td>元大銀行</td><td>朱書霆</td><td>經理</td><td>3163</td><td>採購組</td></tr><tr><td>元大銀行</td><td>許志偉</td><td>專業經理</td><td>6313</td><td>採購組</td></tr><tr><td>元大銀行</td><td>黃仁財</td><td>員工</td><td>6305</td><td>採購組</td></tr><tr><td>元大銀行</td><td>余采蓁</td><td>員工</td><td>6310</td><td>採購組</td></tr><tr><td>元大銀行</td><td>莊賀竣</td><td>員工</td><td>6302</td><td>採購組</td></tr><tr><td>元大銀行</td><td>朱鼎庭</td><td>員工</td><td>3121</td><td>採購組</td></tr><tr><td>元大銀行</td><td>施彥廷</td><td>副理</td><td>6304</td><td>行政組</td></tr><tr><td>元大銀行</td><td>宋麟徵</td><td>員工</td><td>5616</td><td>行政組</td></tr><tr><td>元大銀行</td><td>郭梅雪</td><td>員工</td><td>6363</td><td>行政組</td></tr><tr><td>元大銀行</td><td>殷琦</td><td>員工</td><td>6356</td><td>行政組</td></tr><tr><td>元大銀行</td><td>秦文萱</td><td>員工</td><td>6316</td><td>行政組</td></tr><tr><td>元大銀行</td><td>周玉婷</td><td>員工</td><td>5281</td><td>行政組</td></tr><tr><td>元大銀行</td><td>吳芛綸</td><td>員工</td><td>6349</td><td>行政組</td></tr><tr><td>元大銀行</td><td>李姸潔</td><td>員工</td><td>3104</td><td>行政組</td></tr><tr><td>元大銀行</td><td>余敏敏</td><td>員工</td><td>6326</td><td>行政組</td></tr><tr><td>元大銀行</td><td>李玟玟</td><td>員工</td><td>6341</td><td>行政組</td></tr><tr><td>元大銀行</td><td>張誌宏</td><td>員工</td><td>9404</td><td>行政組</td></tr><tr><td>元大銀行</td><td>鄭榆芳</td><td>副理</td><td>6322</td><td>行政組</td></tr><tr><td>元大銀行</td><td>陳科汶</td><td>員工</td><td>6335</td><td>行政組</td></tr><tr><td>元大銀行</td><td>林湘瑀</td><td>員工</td><td>6329</td><td>行政組</td></tr><tr><td>元大銀行</td><td>謝沅廷</td><td>員工</td><td>6319</td><td>行政組</td></tr><tr><td>元大銀行</td><td>翁瑛鎂</td><td>員工</td><td>3124</td><td>事務一科</td></tr><tr><td>元大銀行</td><td>吳季輿</td><td>員工</td><td>3126</td><td>事務一科</td></tr><tr><td>元大銀行</td><td>李大福</td><td>員工</td><td>8650-676</td><td>事務一科</td></tr><tr><td>元大銀行</td><td>楊婷芳</td><td>員工</td><td>8773-750</td><td>事務一科</td></tr><tr><td>元大銀行</td><td>徐振瑜</td><td>員工</td><td>3147</td><td>事務二科</td></tr><tr><td>元大銀行</td><td>蘇勃嘉</td><td>員工</td><td>5593</td><td>事務二科</td></tr><tr><td>元大銀行</td><td>陳彥蓁</td><td>員工</td><td>6311</td><td>事務二科</td></tr><tr><td>元大銀行</td><td>許筱涵</td><td>員工</td><td>3120</td><td>事務二科</td></tr><tr><td>元大銀行</td><td>陳宛宜</td><td>員工</td><td>3128</td><td>事務二科</td></tr><tr><td>元大銀行</td><td>林佩樺</td><td>員工</td><td>3129</td><td>事務二科</td></tr><tr><td>元大銀行</td><td>王柏皓</td><td>員工</td><td>3131</td><td>事務二科</td></tr><tr><td>元大銀行</td><td>徐勝彬</td><td>員工</td><td>9415</td><td>事務二科</td></tr><tr><td>元大銀行</td><td>劉鎮輝</td><td>員工</td><td>9415</td><td>事務二科</td></tr><tr><td>元大銀行</td><td>林慶清</td><td>員工</td><td>9415</td><td>事務二科</td></tr><tr><td>元大銀行</td><td>胡立祺</td><td>員工</td><td>6371</td><td>事務二科</td></tr><tr><td>元大銀行</td><td>吳振語</td><td>員工</td><td>6314</td><td>事務三科</td></tr><tr><td>元大銀行</td><td>曾巧瑋</td><td>員工</td><td>3114</td><td>事務三科</td></tr><tr><td>元大銀行</td><td>劉志陽</td><td>員工</td><td>6306</td><td>事務三科</td></tr><tr><td>元大銀行</td><td>蔡欣洳</td><td>員工</td><td>3130</td><td>事務三科</td></tr><tr><td>元大銀行</td><td>陳立訓</td><td>員工</td><td>3731</td><td>事務三科</td></tr><tr><td>元大銀行</td><td>李睿堯</td><td>員工</td><td>3731</td><td>事務三科</td></tr><tr><td>元大銀行</td><td>賀靖雅</td><td>資深經理</td><td>3698</td><td>數位金融部</td></tr><tr><td>元大銀行</td><td>葉怡汝</td><td>資深經理</td><td>5627</td><td>數位金融部</td></tr><tr><td>元大銀行</td><td>王舒立</td><td>員工</td><td>3874</td><td>業務發展組</td></tr><tr><td>元大銀行</td><td>吳岱侖</td><td>員工</td><td>5154</td><td>業務發展組</td></tr><tr><td>元大銀行</td><td>鍾念蓉</td><td>員工</td><td>3896</td><td>業務發展組</td></tr><tr><td>元大銀行</td><td>黃昱慈</td><td>員工</td><td>3893</td><td>業務發展組</td></tr><tr><td>元大銀行</td><td>李秀玟</td><td>員工</td><td>5781</td><td>業務發展組</td></tr><tr><td>元大銀行</td><td>孫銓</td><td>員工</td><td>3882</td><td>業務發展組</td></tr><tr><td>元大銀行</td><td>孫熙辰</td><td>員工</td><td>5633</td><td>業務發展組</td></tr><tr><td>元大銀行</td><td>郭慰余</td><td>資深經理</td><td>3890</td><td>管理企劃組</td></tr><tr><td>元大銀行</td><td>李慧雯</td><td>員工</td><td>5642</td><td>管理企劃組</td></tr><tr><td>元大銀行</td><td>姚良淨</td><td>員工</td><td>5632</td><td>管理企劃組</td></tr><tr><td>元大銀行</td><td>李文森</td><td>員工</td><td>3881</td><td>管理企劃組</td></tr><tr><td>元大銀行</td><td>馬德蕙</td><td>員工</td><td>3891</td><td>管理企劃組</td></tr><tr><td>元大銀行</td><td>胡昱晨</td><td>員工</td><td>3898</td><td>管理企劃組</td></tr><tr><td>元大銀行</td><td>郭珮妤</td><td>員工</td><td>5784</td><td>管理企劃組</td></tr><tr><td>元大銀行</td><td>羅律均</td><td>經理</td><td>5635</td><td>數位行銷組</td></tr><tr><td>元大銀行</td><td>楊于萱</td><td>員工</td><td>3877</td><td>數位行銷組</td></tr><tr><td>元大銀行</td><td>陳韻如</td><td>員工</td><td>3888</td><td>數位行銷組</td></tr><tr><td>元大銀行</td><td>林芯妤</td><td>員工</td><td>5793</td><td>數位行銷組</td></tr><tr><td>元大銀行</td><td>蘇士皓</td><td>員工</td><td>5628</td><td>數位行銷組</td></tr><tr><td>元大銀行</td><td>林令雅</td><td>員工</td><td>3872</td><td>數位行銷組</td></tr><tr><td>元大銀行</td><td>邱珮珊</td><td>員工</td><td>3895</td><td>數位行銷組</td></tr><tr><td>元大銀行</td><td>蔡欣芸</td><td>員工</td><td>5792</td><td>數位行銷組</td></tr><tr><td>元大銀行</td><td>林鼎盛</td><td>員工</td><td>5796</td><td>數位行銷組</td></tr><tr><td>元大銀行</td><td>周律卉</td><td>員工</td><td>3884</td><td>數位行銷組</td></tr><tr><td>元大銀行</td><td>張高瑋</td><td>員工</td><td>3868</td><td>數據智能組</td></tr><tr><td>元大銀行</td><td>許婷雅</td><td>員工</td><td>3875</td><td>數據智能組</td></tr><tr><td>元大銀行</td><td>薛亭婷</td><td>員工</td><td>5648</td><td>數據智能組</td></tr><tr><td>元大銀行</td><td>周姵璇</td><td>員工</td><td>5726</td><td>數據智能組</td></tr><tr><td>元大銀行</td><td>方思惟</td><td>員工</td><td>5776</td><td>數據智能組</td></tr><tr><td>元大銀行</td><td>曾上育</td><td>員工</td><td>5624</td><td>數據智能組</td></tr><tr><td>元大銀行</td><td>李杰</td><td>員工</td><td>3873</td><td>數據智能組</td></tr><tr><td>元大銀行</td><td>徐偲恬</td><td>經理</td><td>3867</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>郭鳳儀</td><td>員工</td><td>3885</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>黃冠淳</td><td>員工</td><td>5783</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>徐品慈</td><td>員工</td><td>3880</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>林幸怡</td><td>員工</td><td>3889</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>李語玫</td><td>員工</td><td>5631</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>許筱姍</td><td>員工</td><td>3858</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>陳俐雯</td><td>員工</td><td>3871</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>陳宥昕</td><td>員工</td><td>3876</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>杜昀容</td><td>員工</td><td>3878</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>傅鐘賢</td><td>員工</td><td>3892</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>羅浩瑋</td><td>員工</td><td>5777</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>吳承燁</td><td>員工</td><td>5778</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>陳慧榆</td><td>員工</td><td>3894</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>顏嘉琪</td><td>員工</td><td>3887</td><td>數位平台組</td></tr><tr><td>元大銀行</td><td>馬恩博</td><td>員工</td><td>3866</td><td>數位平台組</td></tr><tr><td>元大證券</td><td>陳又慈</td><td>副總經理</td><td>5300</td><td>證券行政管理部</td></tr><tr><td>元大證券</td><td>黃志誠</td><td>協理</td><td>5323</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>李棟雄</td><td>資深經理</td><td>5305</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>劉康宏</td><td>資深經理</td><td>5314</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>林冠宇</td><td>經理</td><td>5329</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>林宏威</td><td>專業經理</td><td>5327</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>王明方</td><td>員工</td><td>5332</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>康敬宜</td><td>員工</td><td>5311</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>陳婉芬</td><td>員工</td><td>5313</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>王明祥</td><td>員工</td><td>5317</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>林怡吟</td><td>員工</td><td>5319</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>廖豐仁</td><td>員工</td><td>5322</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>邱國龍</td><td>員工</td><td>5331</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>張淑惠</td><td>員工</td><td>5336</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>陳睦文</td><td>員工</td><td>5341</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>花慧娟</td><td>員工</td><td>5343</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>陳建華</td><td>員工</td><td>5347</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>許書誠</td><td>員工</td><td>5353</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>楊禮蔚</td><td>員工</td><td>5356</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>周維萱</td><td>員工</td><td>5390</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>施五發</td><td>員工</td><td>5306</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>賴湘芸</td><td>員工</td><td>5338</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>黃湘芸</td><td>員工</td><td>5308</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>孫冠庭</td><td>員工</td><td>5328</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>王威凱</td><td>員工</td><td>5339</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>吳品豪</td><td>員工</td><td>5337</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>倪毓婷</td><td>員工</td><td>5335</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>黃志仰</td><td>員工</td><td>5310</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>林子翔</td><td>員工</td><td>5324</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>黃貫中</td><td>員工</td><td>5333</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>邱意雯</td><td>員工</td><td>5325</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>鄭筱蓉</td><td>員工</td><td>5349</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>邱翊倫</td><td>員工</td><td>5348</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>陳立訓</td><td>員工</td><td>113731</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>李睿堯</td><td>員工</td><td>113731</td><td>行政管理部</td></tr><tr><td>元大證券</td><td>林昶志</td><td>協理</td><td>6800</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>蔡淑燕</td><td>資深協理</td><td>6836</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>陳怡璉</td><td>資深經理</td><td>6896</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>陳家暐</td><td>資深經理</td><td>6877</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>龔新雅</td><td>資深經理</td><td>6864</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>盧均佩</td><td>專業資深經理</td><td>6833</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>邱俊榮</td><td>經理</td><td>6839</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>林鴻儒</td><td>經理</td><td>6890</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>鄭雅薰</td><td>經理</td><td>6834</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>邱舒婷</td><td>員工</td><td>6803</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>賴曉萍</td><td>員工</td><td>6899</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>張俊傑</td><td>員工</td><td>6868</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>蔡淯慈</td><td>員工</td><td>6850</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>游晴安</td><td>員工</td><td>6812</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>許殷嘉</td><td>員工</td><td>6846</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>陳昱禎</td><td>員工</td><td>6843</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>鄭至皓</td><td>員工</td><td>6805</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>周育慧</td><td>員工</td><td>6835</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>周冠嶔</td><td>員工</td><td>6841</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>唐嘉駿</td><td>員工</td><td>6838</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>黃裕凱</td><td>員工</td><td>6811</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>李彝廷</td><td>員工</td><td>6814</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>林柏廷</td><td>員工</td><td>6876</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>廖偉全</td><td>員工</td><td>6879</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>孫崇棨</td><td>員工</td><td>6830</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>劉欣喬</td><td>員工</td><td>6802</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>盧映帆</td><td>員工</td><td>6858</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>劉冠宏</td><td>員工</td><td>6819</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>邱姿諭</td><td>員工</td><td>6807</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>方琪</td><td>員工</td><td>6801</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>曾宜唯</td><td>員工</td><td>6831</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>游智任</td><td>員工</td><td>6845</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>李學典</td><td>員工</td><td>6804</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>許程翔</td><td>員工</td><td>6889</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>虞庭語</td><td>員工</td><td>6898</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>吳芳儀</td><td>員工</td><td>6840</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>邱祥鴻</td><td>員工</td><td>6848</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>黃揚懿</td><td>員工</td><td>6824</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>黃彥碩</td><td>員工</td><td>6832</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>吳爵宏</td><td>員工</td><td>6820</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>洪芳宜</td><td>員工</td><td>6813</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>姚欣瑩</td><td>員工</td><td>6808</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>楊祁韋</td><td>員工</td><td>6810</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>謝均鴻</td><td>員工</td><td>6856</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>沈欣蓓</td><td>員工</td><td>6894</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>李毓青</td><td>員工</td><td>6815</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>林立柔</td><td>員工</td><td>6852</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>沈彤</td><td>員工</td><td>6853</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>王怡臻</td><td>員工</td><td>6871</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>鄭雁方</td><td>員工</td><td>6827</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>藍元志</td><td>員工</td><td>6865</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>劉懿萱</td><td>員工</td><td>6854</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>詹雅惠</td><td>員工</td><td>6873</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>簡宇岑</td><td>員工</td><td>6809</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>吳芳瑜</td><td>員工</td><td>6875</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>林妏憓</td><td>員工</td><td>6884</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>潘信志</td><td>員工</td><td>6874</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>廖哲暉</td><td>員工</td><td>6821</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>羅章丞</td><td>員工</td><td>6822</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>孫合均</td><td>員工</td><td>6823</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>黃傑</td><td>員工</td><td>6893</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>黃柏穎</td><td>員工</td><td>6849</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>陳奕潤</td><td>員工</td><td>6818</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>陳威佑</td><td>員工</td><td>6816</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>李偉維</td><td>員工</td><td>6825</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>陳玠璞</td><td>員工</td><td>6817</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>陳耕霈</td><td>員工</td><td>6847</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>林子維</td><td>員工</td><td>6885</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>賴威慎</td><td>員工</td><td>6857</td><td>數位金融部</td></tr><tr><td>元大證券</td><td>黃雁婷</td><td>員工</td><td>6870</td><td>數位金融部</td></tr>
+</tbody>
 </table>
-
+</div>
+<script>
+const search = document.getElementById('search');
+const company = document.getElementById('company');
+const rows = Array.from(document.querySelectorAll('#staffRows tr'));
+function filterRows() {
+  const q = search.value.trim().toLocaleLowerCase();
+  const c = company.value;
+  let visible = 0;
+  rows.forEach(row => {
+    const matchesText = row.textContent.toLocaleLowerCase().includes(q);
+    const matchesCompany = !c || row.cells[0].textContent === c;
+    const show = matchesText && matchesCompany;
+    row.hidden = !show;
+    if (show) visible++;
+  });
+  document.getElementById('count').textContent = `顯示 ${visible} / ${rows.length} 筆資料`;
+}
+search.addEventListener('input', filterRows);
+company.addEventListener('change', filterRows);
+filterRows();
+</script>
 </body>
 </html>
-
-
